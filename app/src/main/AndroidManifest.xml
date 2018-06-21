@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.im.process">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -23,9 +26,31 @@
             android:exported="false"
             android:launchMode="singleInstance"
             android:priority="1000"
-            android:process=":chat_process">
+            android:process=":messenger">
             <intent-filter>
                 <action android:name="com.im.process.ChatService" />
+            </intent-filter>
+            <intent-filter>
+                <!-- 系统启动完成后会调用 -->
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.DATE_CHANGED" />
+                <action android:name="android.intent.action.MEDIA_MOUNTED" />
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <action android:name="android.intent.action.ACTION_TIME_TICK" />
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".SocketService"
+            android:enabled="true"
+            android:exported="false"
+            android:launchMode="singleInstance"
+            android:priority="1000"
+            android:process=":socket">
+            <intent-filter>
+                <action android:name="com.im.process.SocketService" />
             </intent-filter>
             <intent-filter>
                 <!-- 系统启动完成后会调用 -->
